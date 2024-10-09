@@ -61,16 +61,19 @@ This README file provides instructions for setting up the environment to use Ope
 
 **Note**: Deprecation warnings for Langchain versions 0.1.0 and 0.2.0 can be ignored.
 
-/\*\*
+## Usage
 
--   Usage:
--   To use the Python script, follow these steps:
--
--   1. Ensure you have set up your environment and installed the dependencies as described above.
--   2. Create a .env file in the root directory of your project and add your OpenAI API key:
--   OPENAI_API_KEY=your_openai_api_key_here
--   3. Run the Python script with the required arguments:
--
--   Example:
--   python main.py --task "return a list of 5 numbers" --language "python"
-    \*/
+To use the Python script, follow these steps:
+
+1. Ensure you have set up your environment and installed the dependencies as described above.
+2. Create a `.env` file in the root directory of your project and add your OpenAI API key:
+    ```env
+    OPENAI_API_KEY=your_openai_api_key_here
+    ```
+3. Run the Python script with the required arguments:
+
+    **Example:**
+
+    ```sh
+    python main.py --task "return a list of 5 numbers" --language "python"
+    ```
