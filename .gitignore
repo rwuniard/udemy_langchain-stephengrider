@@ -1,2 +1,2 @@
 # Ignore the .env file
-/pycode/.env
+/*/.env
