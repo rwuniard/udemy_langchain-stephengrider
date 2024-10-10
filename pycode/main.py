@@ -4,7 +4,7 @@ import os
 from dotenv import load_dotenv
 from langchain.llms import OpenAI
 from langchain.prompts import PromptTemplate
-from langchain.chains import LLMChain
+from langchain.chains import LLMChain, SequentialChain
 
 
 # Create the argument parser.
@@ -33,29 +33,49 @@ load_dotenv()
 llm = OpenAI()
 
 # Create a prompt template.
-promptTemplate = PromptTemplate(
+code_template = PromptTemplate(
     template = "Write a very short {language} function that will {task}",
     input_variables=["language", "task"]
-    )
+)
+
+unittest_template = PromptTemplate(
+    template = "Write a unittest for the following {language} code:\n {code}",
+    input_variables=["language", "code"]
+)
 
 # Create a code chain
 code_chain = LLMChain(
     llm = llm,
-    prompt = promptTemplate,
+    prompt = code_template,
     output_key="code"
 )
 
+# Create a unittest chain
+unittest_chain = LLMChain(
+    llm = llm,
+    prompt = unittest_template,
+    output_key="unit_test_code"
+)
+
+chain = SequentialChain(
+    chains = [code_chain, unittest_chain],
+    input_variables=["language", "task"],
+    output_variables=["code", "unit_test_code"]
+)
+
 # Chain the input into the code chain and get the result.
-result = code_chain({
-    "language": "Python",
-    "task": "list of numbers"
+result = chain({
+    "language": language,
+    "task": task
 })
 
+print(result["code"])
+print(result["unit_test_code"])
 # Print the result with the text key format.
 # print(result["text"])
 
 # when you specify the output_key as code, you need to use "code" key to get the result.
-print(result["code"]) 
+# print(result["code"]) 
 
 
 # Simple example to use the llm
