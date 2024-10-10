@@ -1,5 +1,6 @@
 import argparse
 import os
+
 from dotenv import load_dotenv
 from langchain.llms import OpenAI
 from langchain.prompts import PromptTemplate
@@ -20,12 +21,14 @@ language = args.language
 
 # Load the environment variables
 load_dotenv()
-# Load the OpenAI API key from the environment variable.
-openAIKey = os.getenv('OPENAI_API_KEY')
-if not openAIKey:
-    raise ValueError("The OPENAI_API_KEY environment variable is not set.")
 
-llm = OpenAI(api_key = openAIKey)
+# Load the OpenAI API key from the environment variable.
+# openAIKey = os.getenv('OPENAI_API_KEY')
+# if not openAIKey:
+#     raise ValueError("The OPENAI_API_KEY environment variable is not set.")
+
+# llm = OpenAI(api_key = openAIKey)
+llm = OpenAI()
 
 # Create a prompt template.
 promptTemplate = PromptTemplate(
@@ -36,7 +39,8 @@ promptTemplate = PromptTemplate(
 # Create a code chain
 code_chain = LLMChain(
     llm = llm,
-    prompt = promptTemplate
+    prompt = promptTemplate,
+    output_key="code"
 )
 
 # Chain the input into the code chain and get the result.
@@ -46,7 +50,8 @@ result = code_chain({
 })
 
 # Print the result with the text key format.
-print(result["text"])
+# print(result["text"])
+print(result["code"])
 
 
 # Simple example to use the llm
