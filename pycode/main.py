@@ -28,6 +28,8 @@ load_dotenv()
 #     raise ValueError("The OPENAI_API_KEY environment variable is not set.")
 
 # llm = OpenAI(api_key = openAIKey)
+
+# This will load the OpenAI API key from the environment variable.
 llm = OpenAI()
 
 # Create a prompt template.
@@ -51,7 +53,9 @@ result = code_chain({
 
 # Print the result with the text key format.
 # print(result["text"])
-print(result["code"])
+
+# when you specify the output_key as code, you need to use "code" key to get the result.
+print(result["code"]) 
 
 
 # Simple example to use the llm
