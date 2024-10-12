@@ -66,11 +66,12 @@ This README file provides instructions for setting up the environment to use Ope
 To use the Python script, follow these steps:
 
 1. Ensure you have set up your environment and installed the dependencies as described above.
-2. Create a `.env` file in the root directory of your project and add your OpenAI API key:
+2. Go to https://platform.openai.com/settings/profile?tab=api-keys and find your api key
+3. Create a `.env` file in the root directory of your project and add your OpenAI API key:
     ```env
     OPENAI_API_KEY=your_openai_api_key_here
     ```
-3. Run the Python script with the required arguments:
+4. Run the Python script with the required arguments:
 
     **Example:**
 

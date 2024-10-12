@@ -55,6 +55,20 @@ This README file provides instructions for setting up the environment to use Ope
     python main.py
     ```
 
-6. **Manage Environment Variables and Handle Anaconda Conflicts**  
-   If you make any changes to your environment variables or keys, you may need to exit the shell and re-enter using the `pipenv shell` command.  
-   **Important**: Anaconda users may find that Pipenv conflicts with their environment. Please deactivate your conda environment if you find this to be true.
+## Usage
+
+To use the Python script, follow these steps:
+
+1. Ensure you have set up your environment and installed the dependencies as described above.
+2. Go to https://platform.openai.com/settings/profile?tab=api-keys and find your api key
+3. Create a `.env` file in the root directory of your project and add your OpenAI API key:
+    ```env
+    OPENAI_API_KEY=your_openai_api_key_here
+    ```
+4. Run the Python script with the required arguments:
+
+    **Example:**
+
+    ```sh
+    python main.py
+    ```
