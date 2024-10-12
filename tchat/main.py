@@ -25,12 +25,14 @@ def main():
     )
 
 
-    user_input = input(">>> ")
-    result = chain({
-        "content": user_input
-    })
-    # print(f"You entered: {user_input}")
-    print(result["response"])
+    while True:
+        user_input = input(">>> ")
+        if user_input.lower() in ["exit", "quit"]:
+            break
+        result = chain({
+            "content": user_input
+        })
+        print(result["response"])
 
 if __name__ == "__main__":
     main()
