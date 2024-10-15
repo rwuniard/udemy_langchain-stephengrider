@@ -2,7 +2,9 @@ from langchain.prompts import HumanMessagePromptTemplate
 from langchain.prompts import ChatPromptTemplate
 from langchain.prompts import MessagesPlaceholder
 
-from langchain.memory import ConversationBufferMemory, FileChatMessageHistory
+# from langchain.memory import ConversationBufferMemory, FileChatMessageHistory
+# using the ConversationSummaryMemory instead of the ConversationBufferMemory
+from langchain.memory import ConversationSummaryMemory
 
 from langchain.chat_models import ChatOpenAI
 from langchain.chains import LLMChain
@@ -14,12 +16,19 @@ load_dotenv()
 # section 3 of the course. (look at the tchat.pdf diagram)
 
 def main():
-    chat = ChatOpenAI()
+    chat = ChatOpenAI(verbose=True) 
 
-    memory = ConversationBufferMemory(
+    # memory = ConversationBufferMemory(
+    #     memory_key="messages",
+    #     return_messages=True,
+    #     chat_memory=FileChatMessageHistory("messages.json")
+    # )
+    # using the ConversationSummaryMemory instead of the ConversationBufferMemory
+    memory = ConversationSummaryMemory(
         memory_key="messages",
         return_messages=True,
-        chat_memory=FileChatMessageHistory("messages.json")
+        llm=chat # this is the chat model that will be used to summarize the conversation
+        # chat_memory=FileChatMessageHistory("messages.json")
     )
 
     prompt = ChatPromptTemplate(
@@ -34,7 +43,8 @@ def main():
         llm = chat,
         prompt = prompt,
         output_key = "response",
-        memory=memory
+        memory=memory,
+        verbose=True # This will print the prompt and response to the console
     )
 
 
