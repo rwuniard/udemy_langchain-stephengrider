@@ -1,20 +1,26 @@
 from dotenv import load_dotenv
 from langchain.document_loaders import TextLoader
 from langchain.text_splitter import CharacterTextSplitter
+from langchain.embeddings import OpenAIEmbeddings
 
 
 load_dotenv()
 
-splitter = CharacterTextSplitter(
-    separator="\n",
-    chunk_size=200,
-    chunk_overlap=0
-)
+embeddings = OpenAIEmbeddings()
 
-loader = TextLoader("facts.txt")
-document = loader.load_and_split(
-    text_splitter=splitter
-)
+emb = embeddings.embed_query("Hello, how are you?")
+print(emb)
 
-for item in document:
-    print(item.page_content, "\n")
+# splitter = CharacterTextSplitter(
+#     separator="\n",
+#     chunk_size=200,
+#     chunk_overlap=0
+# )
+
+# loader = TextLoader("facts.txt")
+# document = loader.load_and_split(
+#     text_splitter=splitter
+# )
+
+# for item in document:
+#     print(item.page_content, "\n")
