@@ -55,6 +55,13 @@ This README file provides instructions for setting up the environment to use Ope
     python main.py
     ```
 
+6. **ChromaDB to store vector values**  
+   Run the following command to install ChromaDB:
+
+    ```sh
+    pip install chromadb
+    ```
+
 ## Usage
 
 To use the Python script, follow these steps:
