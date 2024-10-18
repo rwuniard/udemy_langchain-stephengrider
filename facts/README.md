@@ -72,10 +72,14 @@ To use the Python script, follow these steps:
     ```env
     OPENAI_API_KEY=your_openai_api_key_here
     ```
-4. Run the Python script with the required arguments:
-
-    **Example:**
+4. Run the Python script to generate vector values from facts.txt:
 
     ```sh
     python main.py
+    ```
+
+5. Run the Python script to prompt the user:
+
+    ```sh
+    python prompt.py
     ```
