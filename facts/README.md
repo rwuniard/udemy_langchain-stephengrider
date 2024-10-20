@@ -62,6 +62,14 @@ This README file provides instructions for setting up the environment to use Ope
     pip install chromadb
     ```
 
+7. **tiktoken - tokenizer**  
+   Run the following command to install tiktoken.
+   tiktoken is a fast and efficient tokenizer library developed by OpenAI. It is designed to tokenize text into tokens, which are the smallest units of meaning in a language model.
+
+    ```sh
+    pip install tiktoken
+    ```
+
 ## Usage
 
 To use the Python script, follow these steps:
