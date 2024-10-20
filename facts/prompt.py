@@ -28,7 +28,7 @@ db = Chroma(
 # Create a RetrievalQA object using from_chain_type
 chain = RetrievalQA.from_chain_type(
     llm=chat,
-    chain_type="refine",
+    chain_type="stuff",
     retriever=db.as_retriever(),
     verbose=True # This doesn't seem to work
 )
