@@ -6,6 +6,11 @@ from langchain.embeddings import OpenAIEmbeddings
 from langchain.llms import OpenAI
 from langchain.chat_models import ChatOpenAI
 
+#to debug
+import langchain
+# then set debug to True
+langchain.debug = True
+
 #load API key from .env file
 load_dotenv()
 
@@ -25,7 +30,7 @@ chain = RetrievalQA.from_chain_type(
     llm=chat,
     chain_type="map_reduce",
     retriever=db.as_retriever(),
-    verbose=True
+    verbose=True # This doesn't seem to work
 )
 
 # Prompt user for input
