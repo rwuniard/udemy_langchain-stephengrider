@@ -9,7 +9,9 @@ from langchain.chat_models import ChatOpenAI
 #load API key from .env file
 load_dotenv()
 
-chat = ChatOpenAI(verbose=True)
+#if I use ChatOpenAI, when I use map_reduce, I get an error.
+# chat = ChatOpenAI(verbose=True)
+chat = OpenAI()
 embeddings = OpenAIEmbeddings()
 
 #Create a Chroma object
@@ -21,8 +23,9 @@ db = Chroma(
 # Create a RetrievalQA object using from_chain_type
 chain = RetrievalQA.from_chain_type(
     llm=chat,
-    chain_type="stuff",
-    retriever=db.as_retriever()
+    chain_type="map_reduce",
+    retriever=db.as_retriever(),
+    verbose=True
 )
 
 # Prompt user for input
