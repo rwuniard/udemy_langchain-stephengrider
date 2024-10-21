@@ -3,7 +3,7 @@ from langchain.vectorstores import Chroma
 from langchain.schema import BaseRetriever, Document
 from typing import List
 
-
+# This Class RedundantFilterRetriever is used to remove redundant embeddings inside Chroma DB
 class RedundantFilterRetriever(BaseRetriever):
     embeddings : Embeddings
     chroma : Chroma 
