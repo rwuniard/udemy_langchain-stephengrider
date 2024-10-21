@@ -55,6 +55,9 @@ This README file provides instructions for setting up the environment to use Ope
     python main.py
     ```
 
+    When you run this multiple times, you will create duplicates embeddings inside the Chroma DB.
+    The prompt.py will remove the duplicates since it uses the RedundantFilterRetriever class.
+
 6. **ChromaDB to store vector values**  
    Run the following command to install ChromaDB:
 
