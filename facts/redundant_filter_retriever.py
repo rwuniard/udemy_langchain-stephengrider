@@ -14,7 +14,8 @@ class RedundantFilterRetriever(BaseRetriever):
         # Calculate the embedding of the query
         query_embedding = self.embeddings.embed_query(query)
         # Take the query_embedding and feed it to the max_marginal_search_by_vector
-        return asyncio.run (self.chroma.asimilarity_search_by_vector(query_embedding, k=4))
+        return self.chroma.max_marginal_relevance_search_by_vector(
+            query_embedding, lambda_mult=0.8)
     
     async def aget_relevant_documents(self) -> List[Document]:
         return []   
