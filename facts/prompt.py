@@ -6,6 +6,8 @@ from langchain.embeddings import OpenAIEmbeddings
 from langchain.llms import OpenAI
 from langchain.chat_models import ChatOpenAI
 
+from redundant_filter_retriever import RedundantFilterRetriever
+
 #to debug
 import langchain
 # then set debug to True
@@ -24,6 +26,13 @@ db = Chroma(
     persist_directory="emb",
     embedding_function=embeddings
 )
+
+# Create a RedundantFilterRetriever object
+redundant_filter_retriever = RedundantFilterRetriever(
+    embeddings=embeddings, 
+    chroma=db
+)
+
 
 # Create a RetrievalQA object using from_chain_type
 chain = RetrievalQA.from_chain_type(
