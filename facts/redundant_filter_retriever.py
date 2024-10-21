@@ -13,7 +13,7 @@ class RedundantFilterRetriever(BaseRetriever):
         
         # Calculate the embedding of the query
         query_embedding = self.embeddings.embed_query(query)
-        # Take the query_embedding and feed it to the max_marginal_search_by_vector
+        # Take the query_embedding and feed it to the max_marginal_relevance_search_by_vector
         return self.chroma.max_marginal_relevance_search_by_vector(
             query_embedding, lambda_mult=0.8)
     
