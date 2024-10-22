@@ -94,3 +94,17 @@ To use the Python script, follow these steps:
     ```sh
     python prompt.py
     ```
+
+## Visualizing Embeddings
+
+To visualize the embeddings:
+If you are using Visual Studio Code or Cursor, please install Jupyter in the IDE
+
+1. Ensure you have matplotlib installed:
+
+    ```
+    pip install matplotlib
+    ```
+
+2. Execute all cells in the notebook to generate the visualization.
+   You will see the grid that shows values to indicate how close each of the sentence to each other.
