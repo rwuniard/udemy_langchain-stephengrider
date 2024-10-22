@@ -107,4 +107,4 @@ If you are using Visual Studio Code or Cursor, please install Jupyter in the IDE
     ```
 
 2. Execute all cells in the notebook to generate the visualization.
-   You will see the grid that shows values to indicate how close each of the sentence to each other.
+   At the bottom of the jupyter notebook, you will see the grid that shows values to indicate how close each of the sentence to each other.
