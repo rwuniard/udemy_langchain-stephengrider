@@ -37,5 +37,6 @@ agent_executor = AgentExecutor(
 
 # agent_executor("What are the tables in the database and their columns? Ensure that you use SQLLite syntax.")
 # agent_executor("How many users are there in the database?")
-agent_executor(
-    "how many users provided shipping address in the database? The user address is stored in the table called addresses.")
+# agent_executor(
+#     "how many users provided shipping address in the database? The user address is stored in the table called addresses.")
+agent_executor("How many users provided a shipping address?")
