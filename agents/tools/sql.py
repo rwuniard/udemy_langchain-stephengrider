@@ -26,3 +26,31 @@ run_query_tool = Tool.from_function(
     description="Execute a SQL query and return the results",
     func=execute_sql
 )
+
+# Describe all tables in the database
+def describe_tables(table_names):
+    print("executing describe_tables")
+    cursor = conn.cursor()
+    # tables = ", ".join(f"'{table}'" for table in table_names)
+    # print(tables)
+
+  # Convert input to a list if it's a string
+    if isinstance(table_names, str):
+        table_names = [name.strip() for name in table_names.split()]
+    
+    # Create a properly formatted string of table names
+    tables = ", ".join(f"'{table.strip()}'" for table in table_names)
+    
+    print(f"Tables to describe: {tables}") # Debugging line
+    
+
+    rows = cursor.execute(f"SELECT sql FROM sqlite_master WHERE type='table' AND name IN ({tables});")
+    print("rows fetched")
+    print("\n".join(row[0] for row in rows if row[0] is not None))
+    return "\n".join(row[0] for row in rows if row[0] is not None)
+
+describe_table_tool = Tool.from_function(
+    name="describe_tables",
+    description="Given a list of table names, return the SQL schema for each table",
+    func=describe_tables
+)

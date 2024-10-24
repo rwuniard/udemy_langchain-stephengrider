@@ -7,7 +7,7 @@ from langchain.prompts import (
 
 from langchain.schema import SystemMessage
 from langchain.agents import OpenAIFunctionsAgent, AgentExecutor
-from tools.sql import run_query_tool, list_tables
+from tools.sql import run_query_tool, list_tables, describe_tables, describe_table_tool
 
 from dotenv import load_dotenv
 
@@ -17,6 +17,9 @@ chat = ChatOpenAI()
 
 tables = list_tables()
 # print(tables)
+
+# table_description = describe_tables(tables)
+# print(table_description)
 
 # Create a prompt template for the agent
 prompt = ChatPromptTemplate(
@@ -30,7 +33,7 @@ prompt = ChatPromptTemplate(
 )
 
 # Create a list of tools for the agent
-tools = [run_query_tool]
+tools = [run_query_tool, describe_table_tool]
 
 # Create an agent with the prompt and tools
 agent = OpenAIFunctionsAgent(
