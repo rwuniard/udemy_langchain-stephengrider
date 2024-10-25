@@ -28,9 +28,9 @@ prompt = ChatPromptTemplate(
             content=(
                 "You are an AI that has access to SQLite database \n"
                  f"The database has tables of: {tables}\n"
-                 "You can use the describe_tables tool to get the schema of a table.\n"
+                 "You can use the describe_tables_tool to get the schema of a table.\n"
                  "Do not make any assumptions about what tables exists "
-                 "or what columns they have. Instead use the describe_tables tool to get the schema of a table."
+                 "or what columns they have."
             )
         ),
         HumanMessagePromptTemplate.from_template("{input}"),
@@ -61,5 +61,5 @@ agent_executor = AgentExecutor(
 #     "how many users provided shipping address in the database? The user address is stored in the table called addresses.")
 # agent_executor("How many users provided shipping address?")
 # agent_executor("Show me the first 10 user address in the database")
-agent_executor("Show me the top 5 address from FL state in the addresses table")
+agent_executor("Show me the top 5 address with FL state")
 # agent_executor("What is the average order value?")
