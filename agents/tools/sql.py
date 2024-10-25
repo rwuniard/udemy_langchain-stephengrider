@@ -1,7 +1,7 @@
 import sqlite3
 from langchain.tools import Tool
-
-
+from pydantic.v1 import BaseModel #langchain uses pydantic v1
+from typing import List
 conn = sqlite3.connect("db.sqlite")
 
 # List all tables in the database
@@ -19,12 +19,17 @@ def execute_sql(query: str) -> str:
         return cursor.fetchall()
     except sqlite3.OperationalError as err:
         return f"An error occurred: {str(err)}"
+    
+# This is the input schema for the run_query_tool
+class RunQueryArgsSchema(BaseModel):
+    query: str
 
 # Create a tool for executing SQL queries
 run_query_tool = Tool.from_function(
     name="execute_sql",
     description="Execute a SQL query and return the results",
-    func=execute_sql
+    func=execute_sql,
+    args_schema=RunQueryArgsSchema
 )
 
 # Describe all tables in the database
@@ -49,8 +54,12 @@ def describe_tables(table_names):
     print("\n".join(row[0] for row in rows if row[0] is not None))
     return "\n".join(row[0] for row in rows if row[0] is not None)
 
+class DescribeTableArgsSchema(BaseModel):
+    table_names: List[str]
+
 describe_table_tool = Tool.from_function(
     name="describe_tables",
     description="Given a list of table names, return the SQL schema for each table",
-    func=describe_tables
+    func=describe_tables,
+    args_schema=DescribeTableArgsSchema
 )

@@ -61,5 +61,5 @@ agent_executor = AgentExecutor(
 #     "how many users provided shipping address in the database? The user address is stored in the table called addresses.")
 # agent_executor("How many users provided shipping address?")
 # agent_executor("Show me the first 10 user address in the database")
-agent_executor("Show me the 10 FL state address in the addresses table")
+agent_executor("Show me the top 5 address from FL state in the addresses table")
 # agent_executor("What is the average order value?")
