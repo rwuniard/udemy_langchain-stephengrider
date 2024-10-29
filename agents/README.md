@@ -55,6 +55,15 @@ This README file provides instructions for setting up the environment to use Ope
     python main.py
     ```
 
+6. **Install pyboxen**  
+   Run the following command to install pyboxen:
+
+    ```sh
+    pip install pyboxen
+    ```
+
+    pyboxen is used to make the messages from handlers to look nice and easy to read.
+
 ## Usage
 
 To use the Python script, follow these steps:

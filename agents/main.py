@@ -10,11 +10,19 @@ from langchain.agents import OpenAIFunctionsAgent, AgentExecutor
 from tools.sql import run_query_tool, list_tables, describe_tables, describe_table_tool
 from tools.report import write_report_tool
 from langchain.memory import ConversationBufferMemory
+from handlers.chat_model_start_handler import ChatModelStartHandler
 
 from dotenv import load_dotenv
+
 load_dotenv()   
 
-chat = ChatOpenAI()
+# Create a handler for the chat model
+handler = ChatModelStartHandler()
+
+# Create a chat model
+chat = ChatOpenAI(
+    callbacks=[handler]
+    )
 
 tables = list_tables()
 # print(tables)
@@ -64,7 +72,7 @@ agent = OpenAIFunctionsAgent(
 agent_executor = AgentExecutor(
     agent=agent,
     tools=tools,
-    verbose=True,
+    # verbose=True,
     memory=memory
 )
 
