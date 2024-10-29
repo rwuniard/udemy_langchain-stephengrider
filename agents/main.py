@@ -9,6 +9,7 @@ from langchain.schema import SystemMessage
 from langchain.agents import OpenAIFunctionsAgent, AgentExecutor
 from tools.sql import run_query_tool, list_tables, describe_tables, describe_table_tool
 from tools.report import write_report_tool
+from langchain.memory import ConversationBufferMemory
 
 from dotenv import load_dotenv
 load_dotenv()   
@@ -33,9 +34,16 @@ prompt = ChatPromptTemplate(
                  "or what columns they have."
             )
         ),
+        MessagesPlaceholder(variable_name="chat_history"), # this is to store the conversation history
         HumanMessagePromptTemplate.from_template("{input}"),
         MessagesPlaceholder(variable_name="agent_scratchpad"),
     ]
+)
+
+# Create a memory buffer to store the conversation history
+memory = ConversationBufferMemory(
+    memory_key="chat_history",
+    return_messages=True # this is to return messages objects instead of strings
 )
 
 # Create a list of tools for the agent
@@ -56,7 +64,8 @@ agent = OpenAIFunctionsAgent(
 agent_executor = AgentExecutor(
     agent=agent,
     tools=tools,
-    verbose=True
+    verbose=True,
+    memory=memory
 )
 
 # agent_executor("What are the tables in the database and their columns? Ensure that you use SQLLite syntax.")
