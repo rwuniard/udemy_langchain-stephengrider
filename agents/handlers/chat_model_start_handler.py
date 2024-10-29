@@ -19,7 +19,9 @@ class ChatModelStartHandler(BaseCallbackHandler):
             elif message.type == "human":
                 boxen_print(message.content, color="green", title="Human Message")
             elif message.type == "ai" and "function_call" in message.additional_kwargs:
-                boxen_print(message.content, color="yellow", title="AI Message with Function Call")
+                call = message.additional_kwargs["function_call"]
+                boxen_print(f"Function Call: {call}", color="yellow", title="AI Message with Function Call")
+                # boxen_print(message.content, color="yellow", title="AI Message with Function Call")
             elif message.type == "ai":
                 boxen_print(message.content, color="yellow", title="AI Message")
             elif message.type == "function":
