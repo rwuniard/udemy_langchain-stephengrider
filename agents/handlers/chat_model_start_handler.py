@@ -27,4 +27,4 @@ class ChatModelStartHandler(BaseCallbackHandler):
             elif message.type == "function":
                 boxen_print(message.content, color="magenta", title="Function Message")
             else:
-                boxen_print(message.content, color="white", title="Unknown Message")
+                boxen_print(message.content, color="white", title=message.type)
