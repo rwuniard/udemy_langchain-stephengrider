@@ -25,7 +25,7 @@ def create_embeddings_for_pdf(pdf_id: str, pdf_path: str) -> List[Dict]:
     
     # 1. Extract text from PDF
     loader = PyPDFLoader(pdf_path)
-    docs = loader.load()
+
     
     # 2. Split text into chunks
     text_splitter = RecursiveCharacterTextSplitter(
@@ -33,8 +33,14 @@ def create_embeddings_for_pdf(pdf_id: str, pdf_path: str) -> List[Dict]:
         chunk_overlap=100,
         length_function=len
     )
-    chunks = text_splitter.split_documents(docs)
+    chunks = loader.load_and_split(text_splitter)
     
     print(f"Number of chunks: {len(chunks)}")
+    for chunk in chunks:
+        chunk.metadata = {
+            "page": chunk.metadata.get("page", None),
+            "text": chunk.page_content,
+            "pdf_id": pdf_id
+        }
 
     vector_store.add_documents(chunks)
