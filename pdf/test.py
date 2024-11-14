@@ -7,15 +7,17 @@ load_dotenv()
 
 print ("Hello test")
 
-chat = ChatOpenAI()
+chat = ChatOpenAI(streaming=True)
 
 prompt = ChatPromptTemplate.from_messages([
     ("human", "{content}")
 ])
 
 messages = prompt.format_messages(content = "Tell me a joke")
-print(messages)
+# print(messages)
 
-response = chat(messages)
-print(response) 
+for message in chat.stream(messages):
+    print(message)
+# print(response)
+
 
