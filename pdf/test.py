@@ -4,13 +4,17 @@ from langchain.chains import LLMChain
 from langchain.callbacks.base import BaseCallbackHandler
 
 from dotenv import load_dotenv
+from queue import Queue
+from threading import Thread
 
 load_dotenv()
 
+queue = Queue()
+
 class StreamHandler(BaseCallbackHandler):
     def on_llm_new_token(self, token: str, **kwargs) -> None:
-        # print(f"Token: {token}")
-        pass
+# Put the token into the queue.
+        queue.put(token)
 
 print ("Hello test")
 
@@ -24,9 +28,14 @@ prompt = ChatPromptTemplate.from_messages([
 ])
 class StreamingChain(LLMChain):
     def stream(self, input, config=None, **kwargs):
-        print(self(input))
-        yield 'hi'
-        yield 'there'
+        def task():
+            self(input)
+
+        Thread(target=task).start()
+
+        while True:
+            token = queue.get()
+            yield token
 
 chain = StreamingChain(llm=chat, prompt=prompt)
 
