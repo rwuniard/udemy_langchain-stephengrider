@@ -160,3 +160,7 @@ Then:
 ```
 flask --app app.web init-db
 ```
+
+### Streaming the response back
+
+For the Streaming example, please see the test.py code.
