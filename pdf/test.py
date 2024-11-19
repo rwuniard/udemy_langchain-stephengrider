@@ -31,6 +31,8 @@ class StreamingChain(LLMChain):
         def task():
             self(input)
 
+        # Start the task in a separate thread. 
+        # This will allow the main thread to yield tokens to the caller.
         Thread(target=task).start()
 
         while True:
