@@ -16,6 +16,12 @@ class StreamHandler(BaseCallbackHandler):
 # Put the token into the queue.
         queue.put(token)
 
+    def on_llm_end(self, response, **kwargs) -> None:
+        queue.put(None)
+
+    def on_llm_error(self, error: Exception, **kwargs) -> None:
+        queue.put(None)
+
 print ("Hello test")
 
 chat = ChatOpenAI(
@@ -37,6 +43,8 @@ class StreamingChain(LLMChain):
 
         while True:
             token = queue.get()
+            if token is None:
+                break
             yield token
 
 chain = StreamingChain(llm=chat, prompt=prompt)
