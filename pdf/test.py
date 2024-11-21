@@ -9,24 +9,25 @@ from threading import Thread
 
 load_dotenv()
 
-queue = Queue()
 
 class StreamHandler(BaseCallbackHandler):
+    def __init__(self, queue: Queue):
+        self.queue = queue
+
     def on_llm_new_token(self, token: str, **kwargs) -> None:
-# Put the token into the queue.
-        queue.put(token)
+        # Put the token into the queue.
+        self.queue.put(token)
 
     def on_llm_end(self, response, **kwargs) -> None:
-        queue.put(None)
+        self.queue.put(None)
 
     def on_llm_error(self, error: Exception, **kwargs) -> None:
-        queue.put(None)
+        self.queue.put(None)
 
 print ("Hello test")
 
 chat = ChatOpenAI(
-    streaming=True,
-    callbacks=[StreamHandler()]
+    streaming=True
 )
 
 prompt = ChatPromptTemplate.from_messages([
@@ -34,8 +35,11 @@ prompt = ChatPromptTemplate.from_messages([
 ])
 class StreamingChain(LLMChain):
     def stream(self, input, config=None, **kwargs):
+        queue = Queue()
+        stream_handler = StreamHandler(queue)
+
         def task():
-            self(input)
+            self(input, callbacks=[stream_handler])
 
         # Start the task in a separate thread. 
         # This will allow the main thread to yield tokens to the caller.
