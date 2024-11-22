@@ -33,6 +33,8 @@ chat = ChatOpenAI(
 prompt = ChatPromptTemplate.from_messages([
     ("human", "{content}")
 ])
+
+# This class is a base class for all chains that can stream tokens to the caller.
 class StreamableChain:
     def stream(self, input, config=None, **kwargs):
         queue = Queue()
@@ -52,6 +54,8 @@ class StreamableChain:
             yield token
 
 
+# This class is a combination of the StreamableChain and LLMChain classes.
+# It allows the LLMChain to stream tokens to the caller.
 class StreamingChain(StreamableChain, LLMChain):
     pass
 
